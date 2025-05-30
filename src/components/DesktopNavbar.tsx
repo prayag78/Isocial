@@ -7,7 +7,6 @@ import { currentUser } from "@clerk/nextjs/server";
 
 async function DesktopNavbar() {
   const user = await currentUser();
-  console.log("user", user);
 
   return (
     <div className="hidden md:flex items-center space-x-4">
@@ -48,4 +47,4 @@ async function DesktopNavbar() {
     </div>
   );
 }
-export default DesktopNavbar;
+export default DesktopNavbar; 
