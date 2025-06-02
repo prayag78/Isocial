@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast";
 
 function CreatePost() {
   const { user } = useUser();
-  console.log("create post user", user);
+  //console.log("create post user", user);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isPosting, setIsPosting] = useState(false);
