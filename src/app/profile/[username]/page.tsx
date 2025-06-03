@@ -8,19 +8,19 @@ import { notFound } from "next/navigation";
 import ProfilePageClient from "./ProfilePageClient";
 //import { Post } from "@/lib/types";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { username: string };
-}) {
-  const user = await getProfileByUsername(params.username);
-  if (!user) return;
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { username: string };
+// }) {
+//   const user = await getProfileByUsername(params.username);
+//   if (!user) return;
 
-  return {
-    title: `${user.name ?? user.username}`,
-    description: user.bio || `Check out ${user.username}'s profile.`,
-  };
-}
+//   return {
+//     title: `${user.name ?? user.username}`,
+//     description: user.bio || `Check out ${user.username}'s profile.`,
+//   };
+// }
 
 async function ProfilePageServer({ params }: { params: { username: string } }) {
   const user = await getProfileByUsername(params.username);
