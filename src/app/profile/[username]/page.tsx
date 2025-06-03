@@ -24,7 +24,7 @@ import ProfilePageClient from "./ProfilePageClient";
 //   };
 // }
 
-async function ProfilePageServer({ params }: { params: { username: string } }) {
+export default async function Page({ params }: { params: { username: string } }) {
   const user = await getProfileByUsername(params.username);
 
   if (!user) notFound();
@@ -44,4 +44,3 @@ async function ProfilePageServer({ params }: { params: { username: string } }) {
     />
   );
 }
-export default ProfilePageServer;
