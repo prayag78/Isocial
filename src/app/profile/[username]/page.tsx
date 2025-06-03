@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import {
   getProfileByUsername,
   getUserLikedPosts,
