@@ -22,35 +22,36 @@ import {
   SendIcon,
 } from "lucide-react";
 import { Textarea } from "./ui/textarea";
+import { Post } from "@/lib/types";
 
-type Post = {
-  id: string;
-  content: string | null;
-  image: string | null;
-  createdAt: Date;
-  author: {
-    id: string;
-    username: string;
-    image: string | null;
-    name: string | null;
-  };
-  comments: Array<{
-    id: string;
-    content: string;
-    createdAt: Date;
-    author: {
-      id: string;
-      username: string;
-      image: string | null;
-      name: string | null;
-    };
-  }>;
-  likes: Array<{ id: string }>;
-  _count: {
-    likes: number;
-    comments: number;
-  };
-};
+// type Post = {
+//   id: string;
+//   content: string | null;
+//   image: string | null;
+//   createdAt: Date;
+//   author: {
+//     id: string;
+//     username: string;
+//     image: string | null;
+//     name: string | null;
+//   };
+//   comments: Array<{
+//     id: string;
+//     content: string;
+//     createdAt: Date;
+//     author: {
+//       id: string;
+//       username: string;
+//       image: string | null;
+//       name: string | null;
+//     };
+//   }>;
+//   likes: Array<{ id: string }>;
+//   _count: {
+//     likes: number;
+//     comments: number;
+//   };
+// };
 
 function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
   const { user } = useUser();
@@ -59,7 +60,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
   const [isLiking, setIsLiking] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [hasLiked, setHasLiked] = useState(
-    post.likes.some((like) => like.id === dbUserId)
+    post.likes.some((like) => like.userId === dbUserId)
   );
   const [optimisticLikes, setOptmisticLikes] = useState(post._count.likes);
   const [showComments, setShowComments] = useState(false);
@@ -73,7 +74,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
       await toggleLike(post.id);
     } catch (error) {
       setOptmisticLikes(post._count.likes);
-      setHasLiked(post.likes.some((like) => like.id === dbUserId));
+      setHasLiked(post.likes.some((like) => like.userId === dbUserId));
     } finally {
       setIsLiking(false);
     }
