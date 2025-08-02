@@ -1,7 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ui/ModeToggle";
-import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import CreatePost from "@/components/CreatePost";
 import WhoToFollow from "@/components/WhoToFollow";
@@ -20,7 +17,7 @@ async function page() {
       <div className="lg:col-span-6">
         {user ? <CreatePost /> : null}
         <div className="space-y-6">
-          {Array.isArray(posts) ? (
+          {posts.length > 0 ? (
             posts.map((post) => (
               <PostCard key={post.id} post={post} dbUserId={dbUserId} />
             ))

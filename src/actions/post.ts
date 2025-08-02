@@ -57,7 +57,7 @@ export async function getPosts() {
         },
         likes: {
           select: {
-            id: true,
+            userId: true,
           },
         },
         _count: {
@@ -72,7 +72,7 @@ export async function getPosts() {
     return posts;
   } catch (error) {
     console.log(error);
-    return { error: "Failed to get posts" };
+    return [];
   }
 }
 

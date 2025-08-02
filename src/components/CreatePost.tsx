@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useUser } from "@clerk/nextjs";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "./ui/button";
 import { SendIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import ImageUpload from "./ImageUpload";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { ImageIcon } from "lucide-react";
 import { createPost } from "@/actions/post";
@@ -35,8 +34,7 @@ function CreatePost() {
 
         toast.success("Post created successfully");
       }
-    } catch (error) {
-      console.error("Failed to create post:", error);
+    } catch {
       toast.error("Failed to create post");
     } finally {
       setIsPosting(false);

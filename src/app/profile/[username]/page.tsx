@@ -8,7 +8,6 @@ import {
 } from "@/actions/profile";
 import { notFound } from "next/navigation";
 import ProfilePageClient from "./ProfilePageClient";
-//import { Post } from "@/lib/types";
 
 // export async function generateMetadata({
 //   params,
@@ -24,8 +23,13 @@ import ProfilePageClient from "./ProfilePageClient";
 //   };
 // }
 
-export default async function Page({ params }: { params: { username: string } }) {
-  const user = await getProfileByUsername(params.username);
+type Props = {
+  params: Promise<{ username: string }>;
+};
+
+export default async function Page({ params }: Props) {
+  const { username } = await params;
+  const user = await getProfileByUsername(username);
 
   if (!user) notFound();
 

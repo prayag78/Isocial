@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  getProfileByUsername,
-  getUserPosts,
-  updateProfile,
-} from "@/actions/profile";
+import { getProfileByUsername, updateProfile } from "@/actions/profile";
 import { toggleFollow } from "@/actions/user";
 import PostCard from "@/components/PostCard";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -84,7 +80,7 @@ function ProfilePageClient({
       setIsUpdatingFollow(true);
       await toggleFollow(user.id);
       setIsFollowing(!isFollowing);
-    } catch (error) {
+    } catch {
       toast.error("Failed to update follow status");
     } finally {
       setIsUpdatingFollow(false);
@@ -225,7 +221,7 @@ function ProfilePageClient({
           <TabsContent value="posts" className="mt-6">
             <div className="space-y-6">
               {posts.length > 0 ? (
-                posts.map((post,index) => (
+                posts.map((post, index) => (
                   <PostCard key={index} post={post} dbUserId={user.id} />
                 ))
               ) : (

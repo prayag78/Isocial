@@ -49,7 +49,7 @@ export type DbPost = {
       name: string | null;
     };
   }>;
-  likes: Array<{ id: string }>;
+  likes: Array<{ userId: string }>;
   _count: {
     likes: number;
     comments: number;

@@ -1,16 +1,12 @@
 "use client";
 
-import {
-  createComment,
-  deletePost,
-  getPosts,
-  toggleLike,
-} from "@/actions/post";
+import { createComment, deletePost, toggleLike } from "@/actions/post";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Card, CardContent } from "./ui/card";
 import Link from "next/link";
+import Image from "next/image";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { formatDistanceToNow } from "date-fns";
 import { DeleteAlertDialog } from "./DeleteAlertDialog";
@@ -72,7 +68,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
       setHasLiked((prev: boolean) => !prev);
       setOptmisticLikes((prev: number) => prev + (hasLiked ? -1 : 1));
       await toggleLike(post.id);
-    } catch (error) {
+    } catch {
       setOptmisticLikes(post._count.likes);
       setHasLiked(post.likes.some((like) => like.userId === dbUserId));
     } finally {
@@ -89,7 +85,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
         toast.success("Comment posted successfully");
         setNewComment("");
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to add comment");
     } finally {
       setIsCommenting(false);
@@ -103,7 +99,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
       const result = await deletePost(post.id);
       if (result.success) toast.success("Post deleted successfully");
       else throw new Error(result.error);
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete post");
     } finally {
       setIsDeleting(false);
@@ -158,9 +154,11 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
           {/* POST IMAGE */}
           {post.image && (
             <div className="rounded-lg overflow-hidden">
-              <img
+              <Image
                 src={post.image}
                 alt="Post content"
+                width={800}
+                height={600}
                 className="w-full h-auto object-cover"
               />
             </div>
